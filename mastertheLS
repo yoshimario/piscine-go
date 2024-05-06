@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Use ls command to list files in the current directory
+# Sort by time and display in comma-separated format
+ls -mtp | tr -d ' '
