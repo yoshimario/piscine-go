@@ -26,7 +26,7 @@ func PrintComb2() {
 						z01.PrintRune(num2)
 						z01.PrintRune(' ')
 						z01.PrintRune(num3)
-						z01.PrintRune(k)
+						z01.PrintRune(num4)
 						z01.PrintRune(',')
 						z01.PrintRune(' ')
 					} else if num3 > num1 && num4 < num1 {
