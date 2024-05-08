@@ -29,7 +29,7 @@ func PrintComb2() {
 						z01.PrintRune(num4)
 						z01.PrintRune(',')
 						z01.PrintRune(' ')
-					} else if num3 > num1 && num4 < num1 {
+					} else if num3 > num1 && num4 < num2 {
 						z01.PrintRune(num1)
 						z01.PrintRune(num2)
 						z01.PrintRune(' ')
