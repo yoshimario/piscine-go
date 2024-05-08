@@ -4,37 +4,37 @@ import "github.com/01-edu/z01"
 
 func PrintComb2() {
 	for num1 := '0'; num1 <= '9'; num1++ {
-		for num2 := '0'; num2 <= '9'; num2++ {
-			for num3 := '0'; num3 <= '9'; num3++ {
-				for num4 := '0'; num4 <= '9'; num4++ {
-					if num1 == '9' && num2 == '8' && num3 == '9' && num4 == '9' {
+		for j := '0'; j <= '9'; j++ {
+			for q := '0'; q <= '9'; q++ {
+				for k := '0'; k <= '9'; k++ {
+					if num1 == '9' && j == '8' && q == '9' && k == '9' {
 						z01.PrintRune(num1)
-						z01.PrintRune(num2)
+						z01.PrintRune(j)
 						z01.PrintRune(' ')
-						z01.PrintRune(num3)
-						z01.PrintRune(num4)
-					} else if num3 >= num1 && num4 > num2 {
+						z01.PrintRune(q)
+						z01.PrintRune(k)
+					} else if q >= num1 && k > j {
 						z01.PrintRune(num1)
-						z01.PrintRune(num2)
+						z01.PrintRune(j)
 						z01.PrintRune(' ')
-						z01.PrintRune(num3)
-						z01.PrintRune(num4)
+						z01.PrintRune(q)
+						z01.PrintRune(k)
 						z01.PrintRune(',')
 						z01.PrintRune(' ')
-					} else if num3 > num1 && num4 >= num2 {
+					} else if q > num1 && k >= j {
 						z01.PrintRune(num1)
-						z01.PrintRune(num2)
+						z01.PrintRune(j)
 						z01.PrintRune(' ')
-						z01.PrintRune(num3)
-						z01.PrintRune(num4)
+						z01.PrintRune(q)
+						z01.PrintRune(k)
 						z01.PrintRune(',')
 						z01.PrintRune(' ')
-					} else if num3 > num1 && num3 < num2 {
+					} else if q > num1 && k < j {
 						z01.PrintRune(num1)
-						z01.PrintRune(num2)
+						z01.PrintRune(j)
 						z01.PrintRune(' ')
-						z01.PrintRune(num3)
-						z01.PrintRune(num4)
+						z01.PrintRune(q)
+						z01.PrintRune(k)
 						z01.PrintRune(',')
 						z01.PrintRune(' ')
 					}
