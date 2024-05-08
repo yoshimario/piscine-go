@@ -1,4 +1,0 @@
-package piscine
-
-func DoNothing(){
-}
