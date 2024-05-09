@@ -1,6 +1,10 @@
 package piscine
 
 func Atoi(s string) int {
+	if len(s) == 0 {
+		return 0 // or return an error, depending on your requirements
+	}
+
 	result := 0
 	sign := 1 // Initialize sign to positive
 
