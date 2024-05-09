@@ -1,7 +1,9 @@
 package piscine
 
-func Swap(a *int, b *int) {
-	temp := *a
-	*a = *b
-	*b = temp
+func StrRev(s string) string {
+	reversed := ""
+	for i := len(s) - 1; i >= 0; i-- {
+		reversed += string(s[i])
+	}
+	return reversed
 }
