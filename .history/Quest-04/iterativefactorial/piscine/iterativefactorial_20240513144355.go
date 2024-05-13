@@ -1,4 +1,4 @@
-package piscine
+
 func IterativeFactorial(nb int) int64 {
 	// Factorial of negative numbers or values greater than 12 will overflow int
 	if nb < 0 || nb > 12 {
