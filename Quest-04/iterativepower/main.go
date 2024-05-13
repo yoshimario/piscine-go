@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-
-	"piscine/piscine"
+	"piscine"
 )
 
 func main() {
