@@ -21,7 +21,7 @@
 go.work
 
 # History
-*/.history
+**/.history
 
 #.DS__Store
 **/.DS_Store
