@@ -49,6 +49,7 @@ func isSafe(row int) bool {
 
 // Helper function to print a single digit number using z01.PrintRune
 func printDigit(n int) {
-	// Convert the number to its corresponding rune
-	z01.PrintRune('0' + rune(n))
+	runeZero := '0'
+	runeN := runeZero + rune(n)
+	z01.PrintRune(runeN)
 }
