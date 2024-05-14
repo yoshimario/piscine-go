@@ -1,29 +1,43 @@
 package piscine
 
-import "fmt"
+import "github.com/01-edu/z01"
 
-const boardSize = 8
+var (
+	board     [8]int
+	boardSize = 8
+)
 
 func EightQueens() {
-	board := make([]int, boardSize)
-	placeQueens(board, 0)
-}
+	var row int
 
-func placeQueens(board []int, row int) {
-	if row == boardSize {
-		printSolution(board)
-		return
+	// Initialize the board with -1
+	for row < boardSize {
+		board[row] = -1
+		row++
 	}
+	row = 0
 
-	for col := 0; col < boardSize; col++ {
-		if isSafe(board, row, col) {
-			board[row] = col
-			placeQueens(board, row+1)
+	// Backtracking algorithm to place queens
+	for row >= 0 {
+		board[row]++
+		for board[row] < boardSize && !isSafe(row) {
+			board[row]++
+		}
+		if board[row] < boardSize {
+			if row == boardSize-1 {
+				printSolution()
+			} else {
+				row++
+				board[row] = -1
+			}
+		} else {
+			row--
 		}
 	}
 }
 
-func isSafe(board []int, row, col int) bool {
+func isSafe(row int) bool {
+	col := board[row]
 	for i := 0; i < row; i++ {
 		if board[i] == col || board[i]+i == col+row || board[i]-i == col-row {
 			return false
@@ -32,9 +46,29 @@ func isSafe(board []int, row, col int) bool {
 	return true
 }
 
-func printSolution(board []int) {
+func printSolution() {
 	for _, col := range board {
-		fmt.Print(col + 1)
+		PrintNbr(col + 1)
 	}
-	fmt.Println()
+	z01.PrintRune('\n')
+}
+
+// Implementing PrintNbr function using z01.PrintRune
+func PrintNbr(n int) {
+	if n == 0 {
+		z01.PrintRune('0')
+		return
+	}
+	if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+	digits := []rune{}
+	for n > 0 {
+		digits = append(digits, rune('0'+n%10))
+		n /= 10
+	}
+	for i := len(digits) - 1; i >= 0; i-- {
+		z01.PrintRune(digits[i])
+	}
 }
