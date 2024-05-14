@@ -8,7 +8,7 @@ var (
 )
 
 func EightQueens() {
-	// Initialize the board
+	// Initialize the board with -1
 	for row := 0; row < boardSize; row++ {
 		board[row] = -1
 	}
@@ -24,20 +24,7 @@ func EightQueens() {
 			if row == boardSize-1 {
 				// Print the solution directly here
 				for _, col := range board {
-					// Print the digit by calculating its ASCII value
-					n := col + 1
-					if n == 0 {
-						z01.PrintRune('0' + rune(n))
-					} else {
-						digits := []rune{}
-						for n > 0 {
-							digits = append([]rune{rune('0' + n%10)}, digits...)
-							n /= 10
-						}
-						for _, d := range digits {
-							z01.PrintRune(d)
-						}
-					}
+					printDigit(col + 1)
 				}
 				z01.PrintRune('\n')
 			} else {
@@ -58,4 +45,10 @@ func isSafe(row int) bool {
 		}
 	}
 	return true
+}
+
+// Helper function to print a single digit number using z01.PrintRune
+func printDigit(n int) {
+	// Convert the number to its corresponding rune
+	z01.PrintRune('0' + rune(n))
 }
