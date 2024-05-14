@@ -3,5 +3,5 @@ package piscine
 import "strings"
 
 func ToLower(s string) string {
-    return strings.ToLower(s)
+	return strings.ToLower(s)
 }
