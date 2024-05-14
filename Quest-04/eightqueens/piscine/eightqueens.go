@@ -2,8 +2,10 @@ package piscine
 
 import "github.com/01-edu/z01"
 
-var board [8]int
-var boardSize = 8
+var (
+	board     [8]int
+	boardSize = 8
+)
 
 func EightQueens() {
 	var row int
