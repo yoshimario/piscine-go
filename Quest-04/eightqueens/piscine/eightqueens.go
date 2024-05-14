@@ -2,10 +2,8 @@ package piscine
 
 import "github.com/01-edu/z01"
 
-var (
-	board     [8]int
-	boardSize = 8
-)
+var board [8]int
+var boardSize = 8
 
 func EightQueens() {
 	var row int
@@ -25,7 +23,11 @@ func EightQueens() {
 		}
 		if board[row] < boardSize {
 			if row == boardSize-1 {
-				printSolution()
+				// Print the solution directly here
+				for _, col := range board {
+					printDigit(col + 1)
+				}
+				z01.PrintRune('\n')
 			} else {
 				row++
 				board[row] = -1
@@ -46,29 +48,21 @@ func isSafe(row int) bool {
 	return true
 }
 
-func printSolution() {
-	for _, col := range board {
-		PrintNbr(col + 1)
-	}
-	z01.PrintRune('\n')
-}
-
-// Implementing PrintNbr function using z01.PrintRune
-func PrintNbr(n int) {
+// Helper function to print a single digit number
+func printDigit(n int) {
 	if n == 0 {
 		z01.PrintRune('0')
 		return
 	}
-	if n < 0 {
-		z01.PrintRune('-')
-		n = -n
-	}
+
 	digits := []rune{}
 	for n > 0 {
-		digits = append(digits, rune('0'+n%10))
+		// Instead of using '0' directly, use its ASCII code value
+		digits = append([]rune{rune(48 + n%10)}, digits...)
 		n /= 10
 	}
-	for i := len(digits) - 1; i >= 0; i-- {
-		z01.PrintRune(digits[i])
+
+	for _, d := range digits {
+		z01.PrintRune(d)
 	}
 }
