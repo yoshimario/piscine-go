@@ -1,6 +1,6 @@
 package piscine
 
-func ToUpper(s string) string {
+func ToLower(s string) string {
 	var result string
 	for _, char := range s {
 		if char >= 'A' && char <= 'Z' {
