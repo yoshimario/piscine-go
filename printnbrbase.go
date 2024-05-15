@@ -1,8 +1,6 @@
 package piscine
 
 import (
-	"math"
-
 	"github.com/01-edu/z01"
 )
 
@@ -34,7 +32,7 @@ func isValidBase(base string) bool {
 
 // Function to convert number to the specified base
 func convertToBase(nbr int, base string) string {
-	if nbr == math.MinInt64 {
+	if nbr == -9223372036854775808 {
 		// Handle special case for minimum integer value
 		return "-9223372036854775808"
 	}
