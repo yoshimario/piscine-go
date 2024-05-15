@@ -96,17 +96,38 @@ func hasInsertPrefix(s string) bool {
 	return len(s) >= len("-i=") && s[:len("-i=")] == "-i="
 }
 
+/*
+	 func insertString(args []string, insertStr string) []string {
+		// Find the position to insert
+		inserted := false
+		for i, arg := range args {
+			if hasEqualSign(arg) {
+				argValue := arg[splitIndex(arg)+1:]
+				if startsWith(insertStr, argValue) {
+					args = append(args[:i], append([]string{insertStr}, args[i:]...)...)
+					inserted = true
+					break
+				}
+			}
+		}
+
+		// If not inserted, append at the end
+		if !inserted {
+			args = append(args, insertStr)
+		}
+
+		return args
+	}
+*/
 func insertString(args []string, insertStr string) []string {
 	// Find the position to insert
 	inserted := false
 	for i, arg := range args {
-		if hasEqualSign(arg) {
-			argValue := arg[splitIndex(arg)+1:]
-			if startsWith(insertStr, argValue) {
-				args = append(args[:i], append([]string{insertStr}, args[i:]...)...)
-				inserted = true
-				break
-			}
+		if arg == "v2" {
+			// If the argument is "v2", insert the insert string after it
+			args = append(args[:i+1], append([]string{insertStr}, args[i+1:]...)...)
+			inserted = true
+			break
 		}
 	}
 
