@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/01-edu/z01"
 )
@@ -19,8 +18,16 @@ func main() {
 
 	// Convert each argument to its corresponding letter
 	for _, arg := range args {
-		num, err := strconv.Atoi(arg)
-		if err != nil || num < 1 || num > 26 {
+		num := 0
+		for _, char := range arg {
+			if char < '0' || char > '9' {
+				num = -1
+				break
+			}
+			num = num*10 + int(char-'0')
+		}
+
+		if num < 1 || num > 26 {
 			z01.PrintRune(' ')
 			continue
 		}
