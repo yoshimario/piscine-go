@@ -6,98 +6,61 @@ import (
 )
 
 func main() {
-	isOrderFlag, _ := containsFlag(os.Args[1:], "--order", 7, false)
-	isInsertFlag, insertValue := containsFlag(os.Args[1:], "--insert", 8, true)
-	isHelpFlag, _ := containsFlag(os.Args[1:], "--help", 6, false)
-	if isHelpFlag {
-		fmt.Println("--insert")
-		fmt.Println("  -i")
-		fmt.Println("    This flag inserts the string passed as argument.")
-
-		fmt.Println("--order")
-		fmt.Println("  -o")
-		fmt.Println("    This flag will behave like a boolean, if it is called it will order the argument.")
-		return
-	}
-
-	otherArgs := getArguments(os.Args[1:])
-
-	for _, arg := range otherArgs {
-		var runes []rune
-		if isOrderFlag {
-			runes = sortRuneTable([]rune(arg))
-		} else {
-			runes = []rune(arg)
+	commandLineArgs := os.Args
+	if len(commandLineArgs) <= 2 {
+		switch {
+		case len(commandLineArgs) == 1:
+			fmt.Print("--insert\n  -i\n	 This flag inserts the string into the string passed as argument.\n--order\n  -o\n	 This flag will behave like a boolean, if it is called it will order the argument.\n")
+		case commandLineArgs[1][:2] == "--" || commandLineArgs[0][:2] == "-h" || commandLineArgs[1] == "-h" || commandLineArgs[1] == "-help" || len(commandLineArgs) == 1:
+			fmt.Print("--insert\n  -i\n	 This flag inserts the string into the string passed as argument.\n--order\n  -o\n	 This flag will behave like a boolean, if it is called it will order the argument.\n")
+		default:
+			fmt.Println(commandLineArgs[1])
 		}
-		fmt.Print(string(runes))
 	}
-
-	if isInsertFlag {
-		if isOrderFlag {
-			fmt.Println(string(sortRuneTable([]rune(insertValue))))
-		} else {
-			fmt.Println(insertValue)
+	if len(commandLineArgs) > 2 {
+		switch {
+		case len(commandLineArgs[1]) == 2 || len(commandLineArgs[1]) == 7:
+			fmt.Println(sortString(commandLineArgs[2]))
+		case commandLineArgs[2][:2] == "--" || commandLineArgs[2][:2] == "-o":
+			fmt.Println(sortString(insertString(commandLineArgs[1], commandLineArgs[3])))
+		default:
+			fmt.Println(insertString(commandLineArgs[1], commandLineArgs[2]))
 		}
 	}
 }
 
-func sortRuneTable(table []rune) []rune {
-	for currentIndex := 1; currentIndex < stringLength(table); currentIndex++ {
-		currentValue := table[currentIndex]
-		previousIndex := currentIndex - 1
-
-		for previousIndex >= 0 && table[previousIndex] > currentValue {
-			table[previousIndex+1] = table[previousIndex]
-			previousIndex = previousIndex - 1
+func insertString(argument string, valueToInsert string) string {
+	if len(argument) > 8 {
+		if argument[:9] == "--insert=" {
+			return valueToInsert + argument[9:]
 		}
-		table[previousIndex+1] = currentValue
-	}
-	return table
-}
-
-func stringLength(s []rune) int {
-	count := 0
-	for range s {
-		count++
-	}
-
-	return count
-}
-
-func getArguments(args []string) []string {
-	var result []string
-
-	for _, arg := range args {
-		if !containsRune(arg, '-') {
-			result = append(result, arg)
+		if argument[:3] == "-i=" {
+			return valueToInsert + argument[3:]
+		}
+		return valueToInsert
+	} else {
+		if argument[:3] == "-i=" {
+			return valueToInsert + argument[3:]
 		}
 	}
-
-	return result
+	return valueToInsert
 }
 
-func containsRune(s string, check rune) bool {
-	for _, r := range s {
-		if r == check {
-			return true
-		}
+func sortString(chaos string) string {
+	var characters []string
+	for _, char := range chaos {
+		characters = append(characters, string(char))
 	}
-
-	return false
-}
-
-func containsFlag(args []string, flagToFind string, flagToFindLen int, takeParam bool) (bool, string) {
-	for _, arg := range args {
-		if containsRune(arg, '-') {
-			if len(arg) >= flagToFindLen && (arg[:flagToFindLen] == flagToFind || arg[:2] == flagToFind[1:3]) {
-				if takeParam {
-					return true, arg[flagToFindLen+1:]
-				} else {
-					return true, ""
-				}
+	for i := 0; i < len(characters)-1; i++ {
+		for j := 0; j < len(characters)-i-1; j++ {
+			if characters[j] > characters[j+1] {
+				characters[j], characters[j+1] = characters[j+1], characters[j]
 			}
 		}
 	}
-
-	return false, ""
+	sortedString := ""
+	for _, char := range characters {
+		sortedString += char
+	}
+	return sortedString
 }
