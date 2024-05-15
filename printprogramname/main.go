@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/01-edu/z01"
 )
