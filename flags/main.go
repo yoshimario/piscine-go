@@ -73,8 +73,7 @@ func printUsage() {
 }
 
 func isInsertFlag(arg string) bool {
-
-	//fmt.Println(arg)
+	// fmt.Println(arg)
 
 	if len(arg) > 9 {
 		return arg[:9] == "--insert="
@@ -86,7 +85,7 @@ func isInsertFlag(arg string) bool {
 
 	return false
 
-	//return arg == "--insert=" || arg == "-i"
+	// return arg == "--insert=" || arg == "-i"
 }
 
 func isOrderFlag(arg string) bool {
