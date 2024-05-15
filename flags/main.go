@@ -69,6 +69,7 @@ func printUsage() {
 	fmt.Println("  -o")
 	fmt.Println("\t This flag will behave like a boolean, if it is called it will order the argument.")
 }
+
 func insertString(args []string, insertStr string) []string {
 	// Remove the prefix -i= if present
 	if strings.HasPrefix(insertStr, "-i=") {
@@ -95,8 +96,6 @@ func insertString(args []string, insertStr string) []string {
 	return args
 }
 
-
-
 // splitOnEqual splits the string s on the first occurrence of "="
 func splitOnEqual(s string) []string {
 	for i := range s {
@@ -106,7 +105,6 @@ func splitOnEqual(s string) []string {
 	}
 	return []string{s}
 }
-
 
 func orderString(args []string) []string {
 	for i := 0; i < len(args)-1; i++ {
