@@ -96,6 +96,7 @@ func insertString(args []string, insertStr string) []string {
 	return args
 }
 
+
 // splitOnEqual splits the string s on the first occurrence of "="
 func splitOnEqual(s string) []string {
 	for i := range s {
