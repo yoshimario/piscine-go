@@ -39,6 +39,8 @@ func main() {
 		z01.PrintRune(letter)
 	}
 
-	// Print a newline after printing the result
-	z01.PrintRune('\n')
+	// Check if any arguments were provided before printing newline
+	if len(args) > 0 {
+		z01.PrintRune('\n')
+	}
 }
