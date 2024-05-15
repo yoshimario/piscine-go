@@ -38,4 +38,9 @@ func main() {
 		}
 		z01.PrintRune(letter)
 	}
+
+	// Print a newline if --upper flag is used
+	if upper {
+		z01.PrintRune('\n')
+	}
 }
