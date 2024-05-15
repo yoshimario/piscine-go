@@ -89,7 +89,7 @@ func containsRune(s string, check rune) bool {
 func containsFlag(args []string, flagToFind string, flagToFindLen int, takeParam bool) (bool, string) {
 	for _, arg := range args {
 		if containsRune(arg, '-') {
-			if arg[:flagToFindLen] == flagToFind || arg == flagToFind[1:3] {
+			if len(arg) >= flagToFindLen && (arg[:flagToFindLen] == flagToFind || arg[:2] == flagToFind[1:3]) {
 				if takeParam {
 					return true, arg[flagToFindLen+1:]
 				} else {
