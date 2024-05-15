@@ -16,12 +16,6 @@ func main() {
 		args = args[1:]
 	}
 
-	// Check if no arguments are provided
-	if len(args) == 0 {
-		z01.PrintRune('\n')
-		return
-	}
-
 	// Convert each argument to its corresponding letter
 	for _, arg := range args {
 		num := 0
@@ -44,5 +38,4 @@ func main() {
 		}
 		z01.PrintRune(letter)
 	}
-	z01.PrintRune('\n')
 }
