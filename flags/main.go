@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/01-edu/z01"
 )
@@ -68,21 +69,44 @@ func printUsage() {
 	fmt.Println("  -o")
 	fmt.Println("\t This flag will behave like a boolean, if it is called it will order the argument.")
 }
-
 func insertString(args []string, insertStr string) []string {
+	// Remove the prefix -i= if present
+	if strings.HasPrefix(insertStr, "-i=") {
+		insertStr = insertStr[len("-i="):]
+	}
+
+	// Find the position to insert
 	inserted := false
-	for i := 0; i < len(args); i++ {
-		if args[i] >= insertStr {
+	for i, arg := range args {
+		// Split the arg on "=" if it contains it
+		argParts := strings.SplitN(arg, "=", 2)
+		if len(argParts) > 1 && strings.HasPrefix(insertStr, argParts[1]) {
 			args = append(args[:i], append([]string{insertStr}, args[i:]...)...)
 			inserted = true
 			break
 		}
 	}
+
+	// If not inserted, append at the end
 	if !inserted {
 		args = append(args, insertStr)
 	}
+
 	return args
 }
+
+
+
+// splitOnEqual splits the string s on the first occurrence of "="
+func splitOnEqual(s string) []string {
+	for i := range s {
+		if s[i] == '=' {
+			return []string{s[:i], s[i+1:]}
+		}
+	}
+	return []string{s}
+}
+
 
 func orderString(args []string) []string {
 	for i := 0; i < len(args)-1; i++ {
