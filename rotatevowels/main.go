@@ -6,32 +6,53 @@ import (
 	"github.com/01-edu/z01"
 )
 
-func isVowel(r rune) bool {
-	return r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' ||
-		r == 'A' || r == 'E' || r == 'I' || r == 'O' || r == 'U'
-}
-
 func main() {
-	for _, arg := range os.Args[1:] {
-		wordRunes := []rune(arg)
-		leftIndex, rightIndex := 0, len(wordRunes)-1
-		for leftIndex < rightIndex {
-			if !isVowel(wordRunes[leftIndex]) {
-				leftIndex++
-				continue
+	args := os.Args[1:]
+	wordCount := len(args)
+	if wordCount > 0 {
+		vowels := "AEIOUaeiou"
+		var str, vowelsStr, reversedVowels string
+
+		for i, word := range args {
+			str += word
+			if i != wordCount-1 {
+				str += " "
 			}
-			if !isVowel(wordRunes[rightIndex]) {
-				rightIndex--
-				continue
+
+			for _, char := range word {
+				for _, v := range vowels {
+					if char == v {
+						vowelsStr += string(char)
+					}
+				}
 			}
-			wordRunes[leftIndex], wordRunes[rightIndex] = wordRunes[rightIndex], wordRunes[leftIndex]
-			leftIndex++
-			rightIndex--
 		}
-		for _, r := range wordRunes {
-			z01.PrintRune(r)
+
+		vowelsLen := len(vowelsStr)
+		for i := vowelsLen - 1; i >= 0; i-- {
+			reversedVowels += string(vowelsStr[i])
 		}
-		z01.PrintRune(' ')
+
+		var result string
+		vowelIndex := 0
+		for _, char := range str {
+			isVowel := false
+			for _, v := range vowels {
+				if char == v {
+					result += string(reversedVowels[vowelIndex])
+					vowelIndex++
+					isVowel = true
+					break
+				}
+			}
+			if !isVowel {
+				result += string(char)
+			}
+		}
+
+		for _, char := range result {
+			z01.PrintRune(char)
+		}
 	}
 	z01.PrintRune('\n')
 }
