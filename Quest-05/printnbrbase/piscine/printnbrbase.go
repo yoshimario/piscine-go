@@ -5,7 +5,7 @@ import (
 )
 
 func PrintNbrBase(nbr int, base string) {
-	if isValidBase(base) {
+	if isValidBase2(base) {
 		printBase(convertToBase(nbr, base))
 	} else {
 		z01.PrintRune('N')
@@ -14,7 +14,7 @@ func PrintNbrBase(nbr int, base string) {
 }
 
 // Function to validate the base
-func isValidBase(base string) bool {
+func isValidBase2(base string) bool {
 	if len(base) < 2 {
 		return false
 	}
