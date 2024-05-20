@@ -61,22 +61,19 @@ func main() {
 	filenames := os.Args[3:]
 
 	exitStatus := 0
+	fileError := make(map[string]bool)
 
 	for i, filename := range filenames {
-		if i == 0 && fileExists(filename) {
-			fmt.Printf("==> %s <==\n", filename)
-			if err := tailFile(filename, numChars); err != nil {
-				fmt.Println(err)
-				exitStatus = 1
-			}
-		} else if i != 0 && fileExists(filename) {
-			fmt.Println()
-			fmt.Printf("==> %s <==\n", filename)
-			if err := tailFile(filename, numChars); err != nil {
-				fmt.Println(err)
-				exitStatus = 1
-			}
-		} else if err := tailFile(filename, numChars); err != nil {
+		if i > 0 && fileExists(filename) {
+			fmt.Println() // Add a new line between files
+		}
+		if !fileExists(filename) && !fileError[filename] {
+			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
+			exitStatus = 1
+			fileError[filename] = true
+			continue
+		}
+		if err := tailFile(filename, numChars); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			exitStatus = 1
 		}
