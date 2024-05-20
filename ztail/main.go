@@ -59,12 +59,11 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 			errorsPrinted++
-			if errorsPrinted == 2 && i < len(args[2:])-1 {
-				fmt.Println()
-			}
 			exitCode = 1
-		} else if i < len(args[2:])-1 {
-			fmt.Println('n') // Add a new line between files
+		}
+
+		if i < len(args[2:])-1 {
+			fmt.Println() // Add a new line between files
 		}
 	}
 
