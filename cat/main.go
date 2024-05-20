@@ -8,18 +8,19 @@ import (
 	"github.com/01-edu/z01"
 )
 
-func printFileContent(fileName string) {
+func printFileContent(fileName string) error {
 	content, err := ioutil.ReadFile(fileName)
 	if err != nil {
-		errorMessage := "ERROR: open " + fileName + ": " + err.Error() + "\n"
+		errorMessage := "ERROR: open " + fileName + ": no such file or directory\n"
 		for _, char := range errorMessage {
 			z01.PrintRune(char)
 		}
-		return
+		return err
 	}
 	for _, char := range string(content) {
 		z01.PrintRune(char)
 	}
+	return nil
 }
 
 func printStdin() {
@@ -44,8 +45,14 @@ func main() {
 	if len(args) == 0 {
 		printStdin()
 	} else {
+		exitCode := 0
 		for _, fileName := range args {
-			printFileContent(fileName)
+			if err := printFileContent(fileName); err != nil {
+				exitCode = 1
+			}
+		}
+		if exitCode != 0 {
+			os.Exit(exitCode)
 		}
 	}
 }
