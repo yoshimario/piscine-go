@@ -52,25 +52,19 @@ func main() {
 	}
 
 	exitCode := 0
-	firstOutput := true
+	errorsPrinted := 0
 
-	for _, fileName := range args[2:] {
+	for i, fileName := range args[2:] {
 		err := tailFile(fileName, numBytes)
 		if err != nil {
-			if !firstOutput {
-				fmt.Println()
-			}
 			fmt.Println(err)
-			exitCode = 1
-		} else {
-			if !firstOutput {
+			errorsPrinted++
+			if errorsPrinted == 2 && i < len(args)-3 {
 				fmt.Println()
 			}
-			firstOutput = false
+			exitCode = 1
 		}
 	}
 
-	if exitCode != 0 {
-		os.Exit(exitCode)
-	}
+	os.Exit(exitCode)
 }
