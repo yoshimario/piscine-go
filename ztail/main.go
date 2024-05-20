@@ -28,39 +28,41 @@ func tailFile(fileName string, numBytes int) error {
 	}
 
 	buf := make([]byte, numBytes)
-	_, err = file.Read(buf)
+	n, err := file.Read(buf)
 	if err != nil {
 		return fmt.Errorf("read %s: %v", fileName, err)
 	}
 
-	fmt.Printf("==> %s <==\n%s\n", fileName, buf)
+	fmt.Printf("==> %s <==\n", fileName)
+	fmt.Printf("%s\n", string(buf[:n]))
 	return nil
 }
 
 func main() {
 	args := os.Args[1:]
-	if len(args) < 2 {
+	if len(args) < 3 || args[0] != "-c" {
 		fmt.Println("Usage: go run . -c <num_bytes> file1.txt [file2.txt ...]")
 		os.Exit(1)
 	}
 
 	numBytes := 0
-	for i, arg := range args {
-		if arg == "-c" {
-			if len(args) < i+2 {
-				fmt.Println("Error: -c option requires a value")
-				os.Exit(1)
-			}
-			numBytes = 4 // Just considering it as a flag, not using the actual value
-			continue
-		}
-		err := tailFile(arg, numBytes)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		if i < len(args)-1 {
+	if _, err := fmt.Sscanf(args[1], "%d", &numBytes); err != nil || numBytes < 0 {
+		fmt.Println("Error: invalid number of bytes")
+		os.Exit(1)
+	}
+
+	exitCode := 0
+	for i, fileName := range args[2:] {
+		if i > 0 {
 			fmt.Println()
 		}
+		if err := tailFile(fileName, numBytes); err != nil {
+			fmt.Println(err)
+			exitCode = 1
+		}
+	}
+
+	if exitCode != 0 {
+		os.Exit(exitCode)
 	}
 }
