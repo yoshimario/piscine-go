@@ -61,24 +61,22 @@ func main() {
 	filenames := os.Args[3:]
 
 	exitStatus := 0
-	firstFile := true
 
-	for _, filename := range filenames {
-		if fileExists(filename) {
-			if !firstFile {
-				fmt.Println()
-			}
-			fmt.Printf("==> %s <==\n", filename)
-			if err := tailFile(filename, numChars); err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				exitStatus = 1
-			}
-			firstFile = false
-		} else {
-			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
-			exitStatus = 1
-		}
-	}
+	for i, filename := range filenames {
+    if fileExists(filename) {
+        if i > 0 {
+            fmt.Println()
+        }
+        fmt.Printf("==> %s <==\n", filename)
+        if err := tailFile(filename, numChars); err != nil {
+            fmt.Println(err)
+            exitStatus = 1
+        }
+    } else {
+        fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
+        exitStatus = 1
+    }
+}
 
 	os.Exit(exitStatus)
 }
