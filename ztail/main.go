@@ -63,6 +63,8 @@ func main() {
 				fmt.Println()
 			}
 			exitCode = 1
+		} else if i < len(args[2:])-1 {
+			fmt.Println() // Add a new line between files
 		}
 	}
 
