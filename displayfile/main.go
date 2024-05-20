@@ -26,3 +26,5 @@ func main() {
 		return
 	}
 
+	fmt.Print(string(content))
+}
