@@ -45,14 +45,10 @@ func main() {
 	if len(args) == 0 {
 		printStdin()
 	} else {
-		exitCode := 0
 		for _, fileName := range args {
 			if err := printFileContent(fileName); err != nil {
-				exitCode = 1
+				os.Exit(1)
 			}
-		}
-		if exitCode != 0 {
-			os.Exit(exitCode)
 		}
 	}
 }
