@@ -59,7 +59,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 			errorsPrinted++
-			if errorsPrinted == 2 && i < len(args)-3 {
+			if errorsPrinted == 2 && i < len(args[2:])-1 {
 				fmt.Println()
 			}
 			exitCode = 1
