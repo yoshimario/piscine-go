@@ -34,7 +34,7 @@ func tailFile(fileName string, numBytes int) error {
 	}
 
 	fmt.Printf("==> %s <==\n", fileName)
-	fmt.Printf("%s\n", string(buf[:n]))
+	fmt.Print(string(buf[:n]))
 	return nil
 }
 
@@ -46,7 +46,7 @@ func main() {
 	}
 
 	numBytes := 0
-	if _, err := fmt.Sscanf(args[1], "%d", &numBytes); err != nil || numBytes < 0 {
+	if _, err := fmt.Sscanf(args[1], "%d", &numBytes); err != nil || numBytes <= 0 {
 		fmt.Println("Error: invalid number of bytes")
 		os.Exit(1)
 	}
