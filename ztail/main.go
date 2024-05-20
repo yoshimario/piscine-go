@@ -8,7 +8,7 @@ import (
 func tailFile(fileName string, numBytes int) error {
 	file, err := os.Open(fileName)
 	if err != nil {
-		return fmt.Errorf("open %s: %v", fileName, err)
+		return fmt.Errorf("open %s: no such file or directory", fileName)
 	}
 	defer file.Close()
 
