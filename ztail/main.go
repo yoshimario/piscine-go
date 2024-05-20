@@ -56,7 +56,8 @@ func main() {
 		if i > 0 {
 			fmt.Println()
 		}
-		if err := tailFile(fileName, numBytes); err != nil {
+		err := tailFile(fileName, numBytes)
+		if err != nil {
 			fmt.Println(err)
 			exitCode = 1
 		}
