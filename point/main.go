@@ -7,15 +7,16 @@ type point struct {
 	y int
 }
 
-func fixedPoint(nums int) string{
+func fixedPoint(nums int) string {
 	output := ""
-	for ; nums > 0; nums = nums / 10{
-		if nums != 0{
+	for ; nums > 0; nums = nums / 10 {
+		if nums != 0 {
 			output += string(rune(nums%10+'0')) + output
 		}
 	}
 	return output
 }
+
 func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
