@@ -2,8 +2,6 @@ package main
 
 import (
 	"os"
-
-	"github.com/01-edu/z01"
 )
 
 func main() {
@@ -12,11 +10,11 @@ func main() {
 		return
 	}
 
-	firstNum, firstNumOK := atoi(args[1])
+	firstNum, firstNumValid := convertToInt64(args[1])
 	operator := args[2]
-	secondNum, secondNumOK := atoi(args[3])
+	secondNum, secondNumValid := convertToInt64(args[3])
 
-	if !firstNumOK || !secondNumOK {
+	if !firstNumValid || !secondNumValid {
 		return
 	}
 
@@ -51,10 +49,10 @@ func main() {
 	}
 
 	printInt(result)
-	z01.PrintRune('\n')
+	printString("\n")
 }
 
-func atoi(s string) (int64, bool) {
+func convertToInt64(s string) (int64, bool) {
 	var num int64
 	sign := int64(1)
 	if len(s) == 0 {
@@ -74,29 +72,27 @@ func atoi(s string) (int64, bool) {
 }
 
 func printString(s string) {
-	for _, c := range s {
-		z01.PrintRune(c)
-	}
+	os.Stdout.WriteString(s)
 }
 
 func printInt(num int64) {
-	if num < 0 {
-		z01.PrintRune('-')
+	var digits []byte
+	isNegative := num < 0
+	if isNegative {
 		num = -num
 	}
 	if num == 0 {
-		z01.PrintRune('0')
-		return
+		digits = append(digits, '0')
 	}
-
-	digits := []rune{}
 	for num > 0 {
-		digits = append([]rune{rune(num%10) + '0'}, digits...)
-		num = num / 10
+		digits = append(digits, byte(num%10)+'0')
+		num /= 10
 	}
-
-	for _, d := range digits {
-		z01.PrintRune(d)
+	if isNegative {
+		digits = append(digits, '-')
+	}
+	for i := len(digits) - 1; i >= 0; i-- {
+		os.Stdout.WriteByte(digits[i])
 	}
 }
 
