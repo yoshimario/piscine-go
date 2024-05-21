@@ -2,25 +2,20 @@ package main
 
 import (
 	"github.com/01-edu/z01"
+	"os"
 )
 
 func main() {
-	args := []string{
-		"doop",  // Simulating the command name, args[0]
-		"1",     // args[1]
-		"+",     // args[2]
-		"1",     // args[3]
-	}
-
+	args := os.Args
 	if len(args) != 4 {
 		return
 	}
 
-	a, ok1 := atoi(args[1])
+	firstNum, firstNumOK := atoi(args[1])
 	operator := args[2]
-	b, ok2 := atoi(args[3])
+	secondNum, secondNumOK := atoi(args[3])
 
-	if !ok1 || !ok2 {
+	if !firstNumOK || !secondNumOK {
 		return
 	}
 
@@ -29,23 +24,23 @@ func main() {
 
 	switch operator {
 	case "+":
-		result, overflow = add(a, b)
+		result, overflow = add(firstNum, secondNum)
 	case "-":
-		result, overflow = subtract(a, b)
+		result, overflow = subtract(firstNum, secondNum)
 	case "*":
-		result, overflow = multiply(a, b)
+		result, overflow = multiply(firstNum, secondNum)
 	case "/":
-		if b == 0 {
+		if secondNum == 0 {
 			printString("No division by 0\n")
 			return
 		}
-		result = a / b
+		result = firstNum / secondNum
 	case "%":
-		if b == 0 {
+		if secondNum == 0 {
 			printString("No modulo by 0\n")
 			return
 		}
-		result = a % b
+		result = firstNum % secondNum
 	default:
 		return
 	}
@@ -59,7 +54,7 @@ func main() {
 }
 
 func atoi(s string) (int64, bool) {
-	var n int64
+	var num int64
 	sign := int64(1)
 	if len(s) == 0 {
 		return 0, false
@@ -72,9 +67,9 @@ func atoi(s string) (int64, bool) {
 		if c < '0' || c > '9' {
 			return 0, false
 		}
-		n = n*10 + int64(c-'0')
+		num = num*10 + int64(c-'0')
 	}
-	return sign * n, true
+	return sign * num, true
 }
 
 func printString(s string) {
@@ -83,20 +78,20 @@ func printString(s string) {
 	}
 }
 
-func printInt(n int64) {
-	if n < 0 {
+func printInt(num int64) {
+	if num < 0 {
 		z01.PrintRune('-')
-		n = -n
+		num = -num
 	}
-	if n == 0 {
+	if num == 0 {
 		z01.PrintRune('0')
 		return
 	}
 
 	digits := []rune{}
-	for n > 0 {
-		digits = append([]rune{rune(n%10) + '0'}, digits...)
-		n = n / 10
+	for num > 0 {
+		digits = append([]rune{rune(num%10) + '0'}, digits...)
+		num = num / 10
 	}
 
 	for _, d := range digits {
