@@ -1,21 +1,26 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"strconv"
+	"github.com/01-edu/z01"
 )
 
 func main() {
-	if len(os.Args) != 4 {
+	args := []string{
+		"doop",  // Simulating the command name, args[0]
+		"1",     // args[1]
+		"+",     // args[2]
+		"1",     // args[3]
+	}
+
+	if len(args) != 4 {
 		return
 	}
 
-	a, err1 := strconv.ParseInt(os.Args[1], 10, 64)
-	operator := os.Args[2]
-	b, err2 := strconv.ParseInt(os.Args[3], 10, 64)
+	a, ok1 := atoi(args[1])
+	operator := args[2]
+	b, ok2 := atoi(args[3])
 
-	if err1 != nil || err2 != nil {
+	if !ok1 || !ok2 {
 		return
 	}
 
@@ -31,13 +36,13 @@ func main() {
 		result, overflow = multiply(a, b)
 	case "/":
 		if b == 0 {
-			fmt.Println("No division by 0")
+			printString("No division by 0\n")
 			return
 		}
 		result = a / b
 	case "%":
 		if b == 0 {
-			fmt.Println("No modulo by 0")
+			printString("No modulo by 0\n")
 			return
 		}
 		result = a % b
@@ -49,7 +54,54 @@ func main() {
 		return
 	}
 
-	fmt.Println(result)
+	printInt(result)
+	z01.PrintRune('\n')
+}
+
+func atoi(s string) (int64, bool) {
+	var n int64
+	sign := int64(1)
+	if len(s) == 0 {
+		return 0, false
+	}
+	if s[0] == '-' {
+		sign = -1
+		s = s[1:]
+	}
+	for _, c := range s {
+		if c < '0' || c > '9' {
+			return 0, false
+		}
+		n = n*10 + int64(c-'0')
+	}
+	return sign * n, true
+}
+
+func printString(s string) {
+	for _, c := range s {
+		z01.PrintRune(c)
+	}
+}
+
+func printInt(n int64) {
+	if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+	if n == 0 {
+		z01.PrintRune('0')
+		return
+	}
+
+	digits := []rune{}
+	for n > 0 {
+		digits = append([]rune{rune(n%10) + '0'}, digits...)
+		n = n / 10
+	}
+
+	for _, d := range digits {
+		z01.PrintRune(d)
+	}
 }
 
 func add(a, b int64) (int64, bool) {
