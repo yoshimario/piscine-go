@@ -7,12 +7,10 @@ type point struct {
 	y int
 }
 
-func fixedPoint(nums int) string {
+func fixedPoint(num int) string {
 	output := ""
-	for ; nums > 0; nums = nums / 10 {
-		if nums != 0 {
-			output += string(rune(nums%10+'0')) + output
-		}
+	for ; num > 0; num = num / 10 {
+		output = string(rune(num%10+'0')) + output
 	}
 	return output
 }
@@ -20,7 +18,7 @@ func fixedPoint(nums int) string {
 func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
-	var print string = ("x = " + fixedPoint(ptr.x) + ", y = " + fixedPoint(ptr.y) + "\n")
+	var print string = "x = " + fixedPoint(ptr.x) + ", y = " + fixedPoint(ptr.y) + "\n"
 	for _, char := range print {
 		z01.PrintRune(char)
 	}
