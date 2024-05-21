@@ -92,7 +92,7 @@ func printInt(num int64) {
 		digits = append(digits, '-')
 	}
 	for i := len(digits) - 1; i >= 0; i-- {
-		os.Stdout.WriteByte(digits[i])
+		os.Stdout.Write([]byte{digits[i]})
 	}
 }
 
