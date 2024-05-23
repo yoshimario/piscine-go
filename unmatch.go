@@ -1,21 +1,19 @@
 package piscine
 
-func Unmatch(a []int) int {
-	// Create a map to store the frequency of each element
-	freqMap := make(map[int]int)
+func Unmatch(numbers []int) int {
+	countMap := make(map[int]int)
 
-	// Count the frequency of each element in the slice
-	for _, num := range a {
-		freqMap[num]++
+	// Count occurrences of each number
+	for _, number := range numbers {
+		countMap[number]++
 	}
 
-	// Traverse the list in reverse to get the last unpaired element
-	for i := len(a) - 1; i >= 0; i-- {
-		if freqMap[a[i]]%2 != 0 {
-			return a[i]
+	// Find the number with an odd count
+	for _, number := range numbers {
+		if countMap[number]%2 != 0 {
+			return number
 		}
 	}
 
-	// If all numbers have a corresponding pair, return -1
 	return -1
 }
