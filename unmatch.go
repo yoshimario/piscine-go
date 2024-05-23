@@ -9,10 +9,10 @@ func Unmatch(a []int) int {
 		freqMap[num]++
 	}
 
-	// Find the element that does not have a corresponding pair
-	for num, freq := range freqMap {
-		if freq%2 != 0 {
-			return num
+	// Traverse the list in reverse to get the last unpaired element
+	for i := len(a) - 1; i >= 0; i-- {
+		if freqMap[a[i]]%2 != 0 {
+			return a[i]
 		}
 	}
 
