@@ -1,24 +1,17 @@
 package piscine
 
 func Unmatch(numbers []int) int {
-	// Sort the numbers slice
-	for i := 0; i < len(numbers)-1; i++ {
-		for j := i + 1; j < len(numbers); j++ {
-			if numbers[i] > numbers[j] {
-				numbers[i], numbers[j] = numbers[j], numbers[i]
-			}
-		}
+	countMap := make(map[int]int)
+
+	// Count occurrences of each number
+	for _, number := range numbers {
+		countMap[number]++
 	}
 
-	// Check for the unmatching element
-	for len(numbers) > 0 {
-		if len(numbers) == 1 {
-			return numbers[0]
-		}
-		if numbers[0] == numbers[1] {
-			numbers = numbers[2:]
-		} else {
-			return numbers[0]
+	// Find the number with an odd count
+	for _, number := range numbers {
+		if countMap[number]%2 != 0 {
+			return number
 		}
 	}
 
