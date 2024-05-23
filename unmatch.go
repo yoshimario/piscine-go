@@ -1,7 +1,5 @@
 package piscine
 
-import "fmt"
-
 func Unmatch(a []int) int {
 	// Create a map to store the frequency of each element
 	freqMap := make(map[int]int)
@@ -10,9 +8,6 @@ func Unmatch(a []int) int {
 	for _, num := range a {
 		freqMap[num]++
 	}
-
-	// Print the frequency map for debugging
-	fmt.Println("Frequency map:", freqMap)
 
 	// Find the element that does not have a corresponding pair
 	for num, freq := range freqMap {
