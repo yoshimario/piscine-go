@@ -10,22 +10,32 @@ type List struct {
 	Tail *NodeL
 }
 
-func ListReverse(l *List) {
-	var prevNode *NodeL = nil
+func ListForEach(l *List, f func(*NodeL)) {
 	currentNode := l.Head
 
-	// Traverse the list
 	for currentNode != nil {
-		nextNode := currentNode.Next
-		currentNode.Next = prevNode
-		prevNode = currentNode
-		currentNode = nextNode
+		f(currentNode)
+		currentNode = currentNode.Next
 	}
-
-	// Update the list's head and tail
-	l.Tail, l.Head = l.Head, prevNode
 }
 
+func Add2_node(node *NodeL) {
+	switch node.Data.(type) {
+	case int:
+		node.Data = node.Data.(int) + 2
+	case string:
+		node.Data = node.Data.(string) + "2"
+	}
+}
+
+func Subtract3_node(node *NodeL) {
+	switch node.Data.(type) {
+	case int:
+		node.Data = node.Data.(int) - 3
+	case string:
+		node.Data = node.Data.(string) + "-3"
+	}
+}
 func ListPushBack(l *List, data interface{}) {
 	newNode := &NodeL{Data: data}
 
