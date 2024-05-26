@@ -36,6 +36,7 @@ func Subtract3_node(node *NodeL) {
 		node.Data = node.Data.(string) + "-3"
 	}
 }
+
 func ListPushBack(l *List, data interface{}) {
 	newNode := &NodeL{Data: data}
 
