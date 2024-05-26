@@ -24,7 +24,7 @@ func SortedListMerge(n1 *NodeI, n2 *NodeI) *NodeI {
 		}
 		// Move the current pointer forward
 		current = current.Next
-	} 
+	}
 
 	// Append the remaining nodes from n1 or n2 to the merged list
 	if n1 != nil {
