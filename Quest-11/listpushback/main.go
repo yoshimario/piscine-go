@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	link := &piscine.List{}
 
 	piscine.ListPushBack(link, "Hello")
