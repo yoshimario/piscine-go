@@ -22,7 +22,14 @@ func ListPushBack(l *List, data interface{}) {
 	}
 }
 
-func ListClear(l *List) {
-	l.Head = nil
-	l.Tail = nil
+func ListAt(l *NodeL, pos int) *NodeL {
+	if l == nil || pos < 0 {
+		return nil
+	}
+
+	for i := 0; i < pos && l != nil; i++ {
+		l = l.Next
+	}
+
+	return l
 }
