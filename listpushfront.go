@@ -1,17 +1,17 @@
 package piscine
 
-type NodeL struct {
+type NodeL2 struct {
 	Data interface{}
-	Next *NodeL
+	Next *NodeL2
 }
 
-type List struct {
-	Head *NodeL
-	Tail *NodeL
+type List2 struct {
+	Head *NodeL2
+	Tail *NodeL2
 }
 
-func ListPushFront(l *List, data interface{}) {
-	newNode := &NodeL{Data: data}
+func ListPushFront(l *List2, data interface{}) {
+	newNode := &NodeL2{Data: data}
 
 	if l.Head == nil {
 		// If the list is empty, both Head and Tail should point to the new node

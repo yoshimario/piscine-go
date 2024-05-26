@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	link := &piscine.List{}
+	link := &piscine.List2{}
 
 	piscine.ListPushFront(link, "Hello")
 	piscine.ListPushFront(link, "man")
