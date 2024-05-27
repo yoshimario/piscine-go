@@ -1,8 +1,6 @@
 package piscine
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // BTreeApplyByLevel applies the function f to each node of the tree
 func BTreeApplyByLevel(root *TreeNode, f func(...interface{}) (int, error)) {
