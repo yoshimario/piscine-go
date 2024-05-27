@@ -58,3 +58,40 @@ func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 }
 
 
+func BTreeSearchItem(root *TreeNode, elem string) *TreeNode {
+	current := root
+
+	// Traverse the tree to find the node with the matching data.
+	for current != nil {
+		if elem == current.Data {
+			return current
+		}
+		if elem < current.Data {
+			current = current.Left
+		} else {
+			current = current.Right
+		}
+	}
+
+	// If the element is not found, return nil.
+	return nil
+}
+
+func BTreeIsBinary(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	if root.Left != nil && root.Data < root.Left.Data {
+		return false
+	}
+	if root.Right != nil && root.Data > root.Right.Data {
+		return false
+	}
+	left := BTreeIsBinary(root.Left)
+	right := BTreeIsBinary(root.Right)
+
+	if !left || !right {
+		return false
+	}
+	return true
+}
