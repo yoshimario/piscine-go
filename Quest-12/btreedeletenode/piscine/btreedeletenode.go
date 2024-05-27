@@ -1,5 +1,6 @@
 package piscine
 
+// BTreeDeleteNode deletes a node from the binary tree
 func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 	dataToMove := []string{}
 	dataToMove = getTreeData(node.Right, &dataToMove)
@@ -7,12 +8,13 @@ func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 	root = BTreeTransplant(root, node, node.Left)
 
 	for _, st := range dataToMove {
-		BTreeInsertData(root, st)
+		root = BTreeInsertData(root, st)
 	}
 	return root
 }
 
-func getTreeData(node *TreeNode, data *[]string) []string {
+// getTreeData recursively traverses the tree and collects data into a slice
+func getTreeData(root *TreeNode, data *[]string) []string {
 	if root == nil {
 		return *data
 	}
