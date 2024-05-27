@@ -11,7 +11,19 @@ type TreeNode struct {
 
 // BTreeIsBinary checks if a tree is a binary search tree
 func BTreeIsBinary(root *TreeNode) bool {
-	return isBST(root, nil, nil)
+	if root == nil {
+		return true
+	}
+	if root.Left != nil && root.Left.Data > root.Data {
+		return false
+	}
+	if root.Right != nil && root.Right.Data < root.Data {
+		return false
+	}
+	if !BTreeIsBinary(root.Left) || !BTreeIsBinary(root.Right) {
+		return false
+	}
+	return true
 }
 
 // isBST is a helper function to recursively check if a tree is a BST
