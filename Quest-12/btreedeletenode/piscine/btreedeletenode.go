@@ -1,27 +1,22 @@
 package piscine
 
 func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
-	if node == nil {
-		return root
-	}
-	if node.Data < root.Data {
-		root.Left = BTreeDeleteNode(root.Left, node)
-	} else if node.Data > root.Data {
-		root.Right = BTreeDeleteNode(root.Right, node)
-	} else {
-		if root.Left == nil {
-			new := root.Right
-			root = nil
-			return new
-		} else if root.Right == nil {
-			new := root.Left
-			root = nil
-			return new
-		}
-		new := BTreeMin(root.Right)
+	dataToMove := []string{}
+	dataToMove = getTreeData(node.Right, &dataToMove)
 
-		root.Data = new.Data
-		root.Right = BTreeDeleteNode(root.Right, new)
+	root = BTreeTransplant(root, node, node.Left)
+
+	for _, st := range dataToMove {
+		BTreeInsertData(root, st)
 	}
 	return root
+}
+
+func getTreeData(node *TreeNode, dataToMove *[]string) []string {
+	if node != nil {
+		*dataToMove = append(*dataToMove, node.Data)
+		getTreeData(node.Left, dataToMove)
+		getTreeData(node.Right, dataToMove)
+	}
+	return *dataToMove
 }
