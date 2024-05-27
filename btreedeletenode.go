@@ -12,11 +12,12 @@ func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 	return root
 }
 
-func getTreeData(node *TreeNode, dataToMove *[]string) []string {
-	if node != nil {
-		*dataToMove = append(*dataToMove, node.Data)
-		getTreeData(node.Left, dataToMove)
-		getTreeData(node.Right, dataToMove)
+func getTreeData(node *TreeNode, data *[]string) []string {
+	if root == nil {
+		return *data
 	}
-	return *dataToMove
+	*data = append(*data, root.Data)
+	getTreeData(root.Left, data)
+	getTreeData(root.Right, data)
+	return *data
 }
