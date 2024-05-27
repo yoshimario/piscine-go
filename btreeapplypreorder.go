@@ -5,28 +5,21 @@ type TreeNode struct {
 	Data        string
 }
 
-// Insert data into the binary tree
-func BTreeInsertData(root *TreeNode, data string) {
+// BTreeInsertData inserts data into the binary tree.
+func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 	if root == nil {
-		return
+		return &TreeNode{Data: data}
 	}
 
 	if data < root.Data {
-		if root.Left == nil {
-			root.Left = &TreeNode{Data: data}
-		} else {
-			BTreeInsertData(root.Left, data)
-		}
+		root.Left = BTreeInsertData(root.Left, data)
 	} else {
-		if root.Right == nil {
-			root.Right = &TreeNode{Data: data}
-		} else {
-			BTreeInsertData(root.Right, data)
-		}
+		root.Right = BTreeInsertData(root.Right, data)
 	}
+	return root
 }
 
-// Apply the function f to each node of the tree using preorder traversal
+// BTreeApplyPreorder applies the function f to each node of the tree using preorder traversal.
 func BTreeApplyPreorder(root *TreeNode, f func(...interface{}) (int, error)) {
 	if root == nil {
 		return
