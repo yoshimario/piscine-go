@@ -32,8 +32,10 @@ func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 	// Insert the new node as a child of the parent node.
 	if data < parent.Data {
 		parent.Left = newNode
+		parent.Left.Parent = parent
 	} else {
 		parent.Right = newNode
+		parent.Right.Parent = parent
 	}
 
 	// Set the parent of the new node.
