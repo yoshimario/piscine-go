@@ -1,10 +1,5 @@
 package piscine
 
-type TreeNode struct {
-	Left, Right, Parent *TreeNode
-	Data                string
-}
-
 // BTreeDeleteNode deletes a node from the binary tree
 func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 	dataToMove := []string{}
